@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
+import { Text } from "@chakra-ui/react";
 
 interface FetchLiquorsResponse {
   id: number;
@@ -17,19 +18,22 @@ const LiquorGrid = () => {
 
   useEffect(() => {
     apiClient
-      .get<FetchLiquorsResponse[]>("/products/")
+      .get<FetchLiquorsResponse[]>("/ewproducts/")
       .then((res) => setLiquors(res.data))
       .catch((err) => setError(err.message));
   }, []);
 
   return (
-    <ul>
-      {liquors.map((liquor) => (
-        <li id={liquor.id.toString()} key={liquor.id}>
-          {liquor.name}
-        </li>
-      ))}
-    </ul>
+    <>
+      {error && <Text>{error}</Text>}
+      <ul>
+        {liquors.map((liquor) => (
+          <li id={liquor.id.toString()} key={liquor.id}>
+            {liquor.name}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 
