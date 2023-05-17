@@ -1,18 +1,17 @@
-import { Text } from "@chakra-ui/react";
+import { SimpleGrid, Text } from "@chakra-ui/react";
 import useLiquors from "../hooks/useLiquors";
+import LiquorCard from "./LiquorCard";
 
 const LiquorGrid = () => {
   const { liquors, error } = useLiquors();
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} padding={10} spacing={10}>
         {liquors.map((liquor) => (
-          <li id={liquor.id.toString()} key={liquor.id}>
-            {liquor.name}
-          </li>
+          <LiquorCard key={liquor.id} liquor={liquor} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
